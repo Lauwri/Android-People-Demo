@@ -10,7 +10,7 @@ Android Native demo for demonstrating adding and fetching people from a server<b
 
 
 <b>Coming soon</b><br>
--Deleting users from server<br>
+-Deleting people from server<br>
 -Node.JS backend<br>
 -Minimizing global states<br>
 -Beautiful interface<br>
