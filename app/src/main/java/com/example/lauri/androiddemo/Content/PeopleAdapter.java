@@ -1,13 +1,20 @@
 package com.example.lauri.androiddemo.Content;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.lauri.androiddemo.APIMethods;
 import com.example.lauri.androiddemo.R;
 
 import java.text.DateFormat;
@@ -31,13 +38,15 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int TYPE_ITEM = 1;
     private ArrayList<PersonModel> objects;
     private Spinner headerSpinner;
+    private Context mContext;
 
     /**
      * Adapter constructor
      * @param arrayList list items
      */
-    public PeopleAdapter(ArrayList<PersonModel> arrayList) {
+    public PeopleAdapter(ArrayList<PersonModel> arrayList, Context context) {
         objects = arrayList;
+        mContext = context;
         sortListDateDescending();
     }
 
@@ -65,7 +74,7 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
      * For header, only spinner and its listener, when spinner itemSelected, sort the list
      * in appropriate manner and notify adapter of data set change
      *
-     * For item view holder (PeopleHolder) set properties from list of duck objects
+     * For item view holder (PeopleHolder) set properties from list of person objects
      *
      * @param holder holder to bind
      * @param position position of list item
@@ -76,7 +85,7 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
         if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder)holder;
             headerSpinner = headerHolder.spinner;
-            headerHolder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            headerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view,
                                            int pos, long id) {
@@ -97,18 +106,41 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
 
         } else if (holder instanceof PeopleHolder) {
             PeopleHolder peopleHolder = (PeopleHolder)holder;
-            PersonModel model = getItem(position);
+            final PersonModel model = getItem(position);
 
             DateFormat target = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
 
             peopleHolder.date.setText(target.format(model.getDateTimeAdded()));
             peopleHolder.description.setText(model.getDescription());
             peopleHolder.name.setText(model.getName());
+
+            peopleHolder.btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle("Are you sure you want to delete " + model.getName() + "?");
+                    //Set up the buttons
+                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            APIMethods.getInstance(mContext).deletePerson();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                }
+            });
+
         }
     }
 
     /**
-     * Return duck object corresponding position.
+     * Return person object corresponding position.
      * if position == 0, it's a header and we return null
      * @param position of list item
      * @return object in list position position.
@@ -195,18 +227,20 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     /**
-     *  View holder class to host duck objects
+     *  View holder class to host people objects
      */
     public class PeopleHolder extends RecyclerView.ViewHolder {
         TextView date;
         TextView description;
         TextView name;
+        Button btn;
 
         public PeopleHolder(View itemView) {
             super(itemView);
             date = (TextView)itemView.findViewById(R.id.date);
             description = (TextView)itemView.findViewById(R.id.description);
             name = (TextView)itemView.findViewById(R.id.name);
+            btn = (Button)itemView.findViewById(R.id.delete);
         }
     }
 

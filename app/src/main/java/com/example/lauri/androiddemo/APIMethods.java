@@ -51,14 +51,18 @@ public class APIMethods {
 
 
     /**
-     * Networking methods for getting duck sightings, species and posting a duck sighting
+     * Networking methods for getting, posting and deleting people
      */
+
+    public void deletePerson() {
+
+    }
 
 
     /**
      * post person to server
-     * @param name selected duck specie
-     * @param desc description for duck sighting
+     * @param name selected person
+     * @param desc description for person
      * method expects none of the above are not null or empty
      */
     public void postPerson(final String url, String name, String desc, final GetResultListener<Boolean> listener) {

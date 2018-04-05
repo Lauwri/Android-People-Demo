@@ -119,7 +119,7 @@ public class PeopleFragment extends Fragment {
         peopleList.setLayoutManager(new LinearLayoutManager(getContext()));
         //First server request and set the custom adapter for recycler view
         people = new ArrayList<PersonModel>();
-        adapter = new PeopleAdapter(people);
+        adapter = new PeopleAdapter(people, getContext());
 
         peopleList.setAdapter(adapter);
 
@@ -195,7 +195,6 @@ public class PeopleFragment extends Fragment {
         builder.setTitle("Input test server address:");
         //Set up the input
         final EditText input = new EditText(getContext());
-        //Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
         //Set up the buttons

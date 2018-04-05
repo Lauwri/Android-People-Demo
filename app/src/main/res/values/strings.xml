@@ -10,6 +10,7 @@
     <string name="add_person">Add a person</string>
     <string name="arrange_people">Arrange people</string>
     <string name="name">Full Name</string>
+    <string name="delete">delete</string>
     <string-array name="list_spinner_items">
         <item>Time desc.</item>
         <item>Time asc.</item>

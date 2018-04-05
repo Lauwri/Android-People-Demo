@@ -110,10 +110,6 @@
                     android:padding="5dp"/>
 
                 <!-- Add Person -->
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
                 <Button
                     android:id="@+id/add_person_button"
                     android:layout_width="match_parent"
@@ -121,7 +117,9 @@
                     android:text="@string/add_person"
                     android:layout_gravity="center"
                     android:textSize="14sp"
-                    android:layout_margin="10dp"/>
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
