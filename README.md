@@ -17,6 +17,6 @@ Android Native demo for demonstrating adding and fetching people from a server<b
 -Images of the app<br>
 <br>
 
-<b>External libraries</b>
--[Umano SlidingUpPanel](https://github.com/umano/AndroidSlidingUpPanel)
+<b>External libraries</b><br>
+-[Umano SlidingUpPanel](https://github.com/umano/AndroidSlidingUpPanel)<br>
 -[Google Volley](https://github.com/google/volley)
