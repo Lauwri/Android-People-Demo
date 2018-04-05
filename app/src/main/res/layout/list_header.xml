@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp">
+    <TextView
+        android:id="@+id/header_arrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/arrange_people"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/header_spinner"/>
+    <Spinner
+        android:id="@+id/header_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:prompt="@string/list_spinner_title"
+        android:entries="@array/list_spinner_items"
+        app:layout_constraintLeft_toRightOf="@id/header_arrange"
+        android:layout_marginLeft="10dp">
+    </Spinner>
+</android.support.constraint.ConstraintLayout>
