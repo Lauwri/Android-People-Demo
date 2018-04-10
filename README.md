@@ -11,6 +11,7 @@ Check out [Demo Servers](https://github.com/Lauwri/People-Demo-Server) for compa
 -Orientation support<br>
 -Set custom server url from settings
 
+![App images](/demoapp.png?raw=true "People Demo")
 
 <b>Coming soon</b><br>
 -Minimizing global states<br>
