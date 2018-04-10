@@ -1,6 +1,6 @@
 # Android People Demo (WIP)
 
-Android Native demo for demonstrating adding and fetching people from a server<br>
+Android Native demo for managing people in a server<br>
 
 <b>Features</b><br>
 -Add, view and delete people<br>
