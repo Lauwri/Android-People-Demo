@@ -1,7 +1,9 @@
 # Android People Demo (WIP)
 
 Android Native demo for managing people in a server<br>
-
+<br>
+Check out [Demo Servers](https://github.com/Lauwri/People-Demo-Server) for compatible server!<br>
+<br>
 <b>Features</b><br>
 -Add, view and delete people<br>
 -Custom url in settings to make testing easier<br>
@@ -11,7 +13,6 @@ Android Native demo for managing people in a server<br>
 
 
 <b>Coming soon</b><br>
--Node.JS backend<br>
 -Minimizing global states<br>
 -Beautiful interface<br>
 -Images of the app<br>
