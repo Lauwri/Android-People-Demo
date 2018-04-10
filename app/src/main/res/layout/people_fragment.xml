@@ -117,6 +117,7 @@
                     android:text="@string/add_person"
                     android:layout_gravity="center"
                     android:textSize="14sp"
+                    android:background="@drawable/rounded_button"
                     android:layout_marginTop="50dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"/>

@@ -16,10 +16,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/palette3"
+            android:background="@color/palette1"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/app_name"
-            app:titleTextColor="@color/palette2"/>
+            app:titleTextColor="@color/palette4"/>
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout

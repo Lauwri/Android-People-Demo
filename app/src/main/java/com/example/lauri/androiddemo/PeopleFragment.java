@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,10 +28,7 @@ import com.example.lauri.androiddemo.Content.PeopleAdapter;
 import com.example.lauri.androiddemo.Content.PersonModel;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +45,6 @@ public class PeopleFragment extends Fragment {
      * server url
      * array list to hold PersonModel objects
      * adapter for displaying people in recyclerview
-     * section number of fragment(tab index)
      * umano slidingUpPanel for adding new duck sighting
      * swipe to refresh layout for refreshing people
      * boolean variable to describe if sliding panel is showing or collapsed
@@ -119,7 +114,13 @@ public class PeopleFragment extends Fragment {
         peopleList.setLayoutManager(new LinearLayoutManager(getContext()));
         //First server request and set the custom adapter for recycler view
         people = new ArrayList<PersonModel>();
-        adapter = new PeopleAdapter(people, getContext());
+        //people list, context and listener for listening delete button clicks
+        adapter = new PeopleAdapter(people, getContext(), new GetResultListener<Integer>() {
+            @Override
+            public void getResults(Integer result) {
+                deletePerson(result);
+            }
+        });
 
         peopleList.setAdapter(adapter);
 
@@ -215,7 +216,7 @@ public class PeopleFragment extends Fragment {
 
     private void getPeople() {
         refreshPeople.setRefreshing(true);
-        APIMethods.getInstance(getContext()).getPeople(people, url, new GetResultListener<ArrayList<PersonModel>>() {
+        APIMethods.getInstance(getContext()).getPeople(url, people, new GetResultListener<ArrayList<PersonModel>>() {
             @Override
             public void getResults(ArrayList<PersonModel> result) {
                 refreshPeople.setRefreshing(false);
@@ -229,7 +230,7 @@ public class PeopleFragment extends Fragment {
         });
     }
 
-    private void postPeople(String name, String desc) {
+    private void postPerson(String name, String desc) {
         APIMethods.getInstance(getContext()).postPerson(url, name, desc, new GetResultListener<Boolean>() {
             @Override
             public void getResults(Boolean result) {
@@ -245,6 +246,19 @@ public class PeopleFragment extends Fragment {
         });
     }
 
+    private void deletePerson(int id) {
+        APIMethods.getInstance(getContext()).deletePerson(url, id, new GetResultListener<String>() {
+            @Override
+            public void getResults(String result) {
+                if(result != null) {
+                    getPeople();
+                    showSnackbar(rootView, "Removed " + result + "!");
+                } else {
+                    showSnackbar(rootView, "Removing failed!");
+                }
+            }
+        });
+    }
 
     /**
      * Sliding up panel setup
@@ -309,7 +323,7 @@ public class PeopleFragment extends Fragment {
                 //Check user inputs
                 if(!nameString.equals("")) {
                     if(!descString.equals("")) {
-                        postPeople(nameString, descString);
+                        postPerson(nameString, descString);
                         addPeoplePanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                     } else {
                         showSnackbar(rootView, "Description can't be empty!");
@@ -348,6 +362,11 @@ public class PeopleFragment extends Fragment {
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    private void showSnackbar(View v, String message) {
+        Snackbar.make(v, message, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
     /*
         fire fragment listeners
      */
@@ -358,16 +377,12 @@ public class PeopleFragment extends Fragment {
     }
 
 
-    private void showSnackbar(View v, String message) {
-        Snackbar.make(v, message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
+
 
     /*
         Callback listener
      */
     interface PanelStateListener {
-
         void panelStateListener(boolean stateShowing);
     }
 }

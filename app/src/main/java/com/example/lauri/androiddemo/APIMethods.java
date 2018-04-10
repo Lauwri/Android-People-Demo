@@ -1,6 +1,7 @@
 package com.example.lauri.androiddemo;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -54,8 +55,29 @@ public class APIMethods {
      * Networking methods for getting, posting and deleting people
      */
 
-    public void deletePerson() {
+    public void deletePerson(String url, int id, final GetResultListener<String> listener) {
+        String urlPost = url + "/people/"+id;
 
+        //The request for server and on response or error
+        JsonObjectRequest deletePersonRequest = new JsonObjectRequest(Request.Method.DELETE, urlPost, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                String name;
+                try {
+                    name = response.getString("name");
+                } catch (JSONException e) {
+                    name = null;
+                }
+                listener.getResults(name);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.getResults(null);
+                Log.d("here", error+"");
+            }
+        });
+        VolleyQueue.getInstance(mCtx).addToRequestQueue(deletePersonRequest);
     }
 
 
@@ -102,7 +124,7 @@ public class APIMethods {
      * method for getting people from server
      */
 
-    public void getPeople(final ArrayList<PersonModel> people, String url, final GetResultListener<ArrayList<PersonModel>> listener) {
+    public void getPeople(final String url, final ArrayList<PersonModel> people, final GetResultListener<ArrayList<PersonModel>> listener) {
         //set the url
         String urlGet = url + "/people";
 
@@ -120,7 +142,6 @@ public class APIMethods {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         listener.getResults(null);
-
                     }
                 });
         // Access the RequestQueue through VolleyQueue class.

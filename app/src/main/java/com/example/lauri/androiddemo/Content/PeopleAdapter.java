@@ -4,17 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.lauri.androiddemo.APIMethods;
+import com.example.lauri.androiddemo.GetResultListener;
 import com.example.lauri.androiddemo.R;
 
 import java.text.DateFormat;
@@ -39,14 +37,16 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
     private ArrayList<PersonModel> objects;
     private Spinner headerSpinner;
     private Context mContext;
+    private GetResultListener deleteListener;
 
     /**
      * Adapter constructor
      * @param arrayList list items
      */
-    public PeopleAdapter(ArrayList<PersonModel> arrayList, Context context) {
+    public PeopleAdapter(ArrayList<PersonModel> arrayList, Context context, final GetResultListener<Integer> listener) {
         objects = arrayList;
         mContext = context;
+        deleteListener = listener;
         sortListDateDescending();
     }
 
@@ -123,7 +123,7 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
                     builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            APIMethods.getInstance(mContext).deletePerson();
+                            deleteListener.getResults(model.getId());
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
