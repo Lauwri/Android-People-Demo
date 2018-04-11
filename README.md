@@ -7,7 +7,6 @@ Check out [Demo Servers](https://github.com/Lauwri/People-Demo-Server) for compa
 <b>Features</b><br>
 -Add, view and delete people<br>
 -Custom url in settings to make testing easier<br>
--Ugly interface (working on it)<br>
 -Orientation support<br>
 -Set custom server url from settings
 
