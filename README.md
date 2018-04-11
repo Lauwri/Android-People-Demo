@@ -13,9 +13,10 @@ Check out [Demo Servers](https://github.com/Lauwri/People-Demo-Server) for compa
 ![App images](/demoapp.png?raw=true "People Demo")
 
 <b>Coming soon</b><br>
+-Authentication<br>
+-People locations<br>
 -Minimizing global states<br>
 -Beautiful interface<br>
--Images of the app<br>
 <br>
 
 <b>External libraries</b><br>
