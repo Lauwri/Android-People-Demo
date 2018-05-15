@@ -45,7 +45,7 @@ public class PeopleFragment extends Fragment {
      * server url
      * array list to hold PersonModel objects
      * adapter for displaying people in recyclerview
-     * umano slidingUpPanel for adding new duck sighting
+     * umano slidingUpPanel for adding new people
      * swipe to refresh layout for refreshing people
      * boolean variable to describe if sliding panel is showing or collapsed
      *
@@ -99,7 +99,7 @@ public class PeopleFragment extends Fragment {
         //setting up the panel for adding more people!
         addPeoplePanel = (SlidingUpPanelLayout) rootView.findViewById(R.id.sliding_layout);
         addPeoplePanel.setScrollableView(rootView.findViewById(R.id.add_person_panel));
-        setUpDuckPanel(addPeoplePanel);
+        setUpPersonPanel(addPeoplePanel);
         //set up swipe refresh
         refreshPeople = rootView.findViewById(R.id.refresh_people_list);
         refreshPeople.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -235,7 +235,7 @@ public class PeopleFragment extends Fragment {
             @Override
             public void getResults(Boolean result) {
                 if(result) {
-                    clearDuckPanel();
+                    clearPersonPanel();
                     hideSoftKeyboard();
                     showSnackbar(rootView, "Added a new person!");
                     getPeople();
@@ -264,7 +264,7 @@ public class PeopleFragment extends Fragment {
      * Sliding up panel setup
      * @param panel reference to slidingUpPanel
      */
-    private void setUpDuckPanel(final SlidingUpPanelLayout panel) {
+    private void setUpPersonPanel(final SlidingUpPanelLayout panel) {
         final EditText editName = panel.findViewById(R.id.add_person_name);
         final EditText editDesc = panel.findViewById(R.id.add_description);
         final TextView editDescCharCount = panel.findViewById(R.id.add_description_char_count);
@@ -339,7 +339,7 @@ public class PeopleFragment extends Fragment {
     /**
      * clears slidingUpPanel
      */
-    private void clearDuckPanel() {
+    private void clearPersonPanel() {
         final EditText editName = addPeoplePanel.findViewById(R.id.add_person_name);
         final EditText editDesc = addPeoplePanel.findViewById(R.id.add_description);
         final TextView editDescCharCount = addPeoplePanel.findViewById(R.id.add_description_char_count);
