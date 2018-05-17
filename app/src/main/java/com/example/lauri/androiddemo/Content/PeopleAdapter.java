@@ -60,10 +60,10 @@ public class PeopleAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_HEADER) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_header, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.list_header, parent, false);
             return new HeaderHolder(view);
         } else if(viewType == TYPE_ITEM) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
             return new PeopleHolder(view);
         }
         throw new RuntimeException("List type error. Current type: " + viewType);

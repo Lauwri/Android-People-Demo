@@ -295,8 +295,8 @@ public class PeopleFragment extends Fragment {
         });
 
         /*
-            Restricted character limit on description to 255, here we display how many characters
-            are used/255
+            Restricted character limit on description to 255 in xml, here we display how many characters
+            are used/255.
          */
         editDesc.addTextChangedListener(new TextWatcher() {
             @Override
